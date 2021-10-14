@@ -18,14 +18,18 @@ class Storage extends ScratchStorage {
             this.getProjectCreateConfig.bind(this),
             this.getProjectUpdateConfig.bind(this)
         );
+//        this.addWebStore(
+//            [this.AssetType.ImageVector, this.AssetType.ImageBitmap, this.AssetType.Sound],
+//            this.getAssetGetConfig.bind(this),
+//            // We set both the create and update configs to the same method because
+//            // storage assumes it should update if there is an assetId, but the
+//            // asset store uses the assetId as part of the create URI.
+//            this.getAssetCreateConfig.bind(this),
+//            this.getAssetCreateConfig.bind(this)
+//        );
         this.addWebStore(
             [this.AssetType.ImageVector, this.AssetType.ImageBitmap, this.AssetType.Sound],
-            this.getAssetGetConfig.bind(this),
-            // We set both the create and update configs to the same method because
-            // storage assumes it should update if there is an assetId, but the
-            // asset store uses the assetId as part of the create URI.
-            this.getAssetCreateConfig.bind(this),
-            this.getAssetCreateConfig.bind(this)
+            asset => `static/host_assets/${asset.assetId}.${asset.dataFormat}`
         );
         this.addWebStore(
             [this.AssetType.Sound],
