@@ -29,7 +29,14 @@ class Storage extends ScratchStorage {
 //        );
         this.addWebStore(
             [this.AssetType.ImageVector, this.AssetType.ImageBitmap, this.AssetType.Sound],
-            asset => `static/host_assets/${asset.assetId}.${asset.dataFormat}`
+            function (asset) {
+              return `http://localhost:8090/static/host_assets/${asset.assetId}.${asset.dataFormat}`;
+            },
+            // We set both the create and update configs to the same method because
+            // storage assumes it should update if there is an assetId, but the
+            // asset store uses the assetId as part of the create URI.
+            function (asset) { return {} },
+            function (asset) { return {} }
         );
         this.addWebStore(
             [this.AssetType.Sound],
